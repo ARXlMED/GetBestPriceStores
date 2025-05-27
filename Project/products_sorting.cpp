@@ -1,38 +1,52 @@
 #include "products_sorting.h"
 
-// Сортировка по именам продуктов (из-за того что вначале в имени указывается компания сортирует по компаниям, а потом по именам)
+// Сортировка по именам продуктов (из-за того что вначале в имени указывается компания сортирует по компаниям, а потом по именам) (быстрая сортировка)
 void sort_by_name(std::vector<Product>& massive_products)
 {
-	const double factor = 1.247;
-	int amountstores = massive_products.size();
-	int step = amountstores - 1;
+	quick_sort(massive_products, 0, massive_products.size() - 1);
+}
 
-	while (step >= 1) // Расчёска почти сортирует массив
-	{
-		for (int i = 0; i + step < amountstores; i++)
-		{
-			if (massive_products[i].name > massive_products[i+step].name)
-			{
-				Product temp = massive_products[i];
-				massive_products[i] = massive_products[i+step];
-				massive_products[i+step] = temp;
-			}
-		}
-		step /= factor;
-	}
+// Определяет границу где разделяется массив на две части, до элемента возвращаемого идут элементы меньше некоторого pivot, а после больше pivot 
+int partition(std::vector<Product>& massive_products, int low, int high)
+{
+	int pivot_index = low + (high - low) / 2;
+	Product pivot_product = massive_products[pivot_index];
+	int i = low - 1;
+	int j = high + 1;
 
-	for (int i = 0; i + 1 < amountstores; i++) // Проход пузырьковой для закрепления
+	while (true)
 	{
-		if (massive_products[i].name > massive_products[i + step].name)
+		do
 		{
-			Product temp = massive_products[i];
-			massive_products[i] = massive_products[i + step];
-			massive_products[i + step] = temp;
-		}
+			i++;
+		} 
+		while (massive_products[i].name < pivot_product.name);
+
+		do
+		{
+			j--;
+		} 
+		while (massive_products[j].name > pivot_product.name);
+
+		if (i >= j) return j;
+
+		std::swap(massive_products[i], massive_products[j]);
 	}
 }
 
-// Сортирует по цене, минимальная цена идёт вначале
+// Рекурсивные вызовы быстрой сортировки
+void quick_sort(std::vector<Product>& massive_products, int low, int high)
+{
+	if (low < high)
+	{
+		int devision = partition(massive_products, low, high);
+		quick_sort(massive_products, low, devision);
+		quick_sort(massive_products, devision + 1, high);
+	}
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+// Сортирует по цене, минимальная цена идёт вначале (сортировка слиянием)
 void sort_by_min_price(std::vector<Product>& massive_products)
 {
 	const double factor = 1.247;
@@ -64,7 +78,51 @@ void sort_by_min_price(std::vector<Product>& massive_products)
 	}
 }
 
-// Сортирует по цене, максимальная цена идёт вначале
+
+void merge(std::vector<Product>& massive_products, int left, int middle, int right)
+{
+	std::vector<Product> left_massive, right_massive;
+
+	for (int i = left; i <= middle; i++)
+	{
+		left_massive.push_back(massive_products[i]);
+	}
+
+	for (int i = middle + 1; i <= right; i++)
+	{
+		right_massive.push_back(massive_products[i]);
+	}
+
+	int i = 0, j = 0, k = left;
+	while (i < left_massive.size() && j < right_massive.size())
+	{
+		if (left_massive[i].get_min_price() <= right_massive[j].get_min_price())
+		{
+			massive_products[k++] = left_massive[i++];
+		}
+		else
+		{
+			massive_products[k++] = right_massive[j++];
+		}
+	}
+
+	while (i < left_massive.size()) massive_products[k++] = left_massive[i++];
+	while (j < right_massive.size()) massive_products[k++] = right_massive[j++];
+}
+
+void merge_sort(std::vector<Product>& massive_products, int left, int right)
+{
+	if (left >= right) return;
+
+	int middle = left + (right - left) / 2;
+	merge_sort(massive_products, left, middle);
+	merge_sort(massive_products, middle + 1, right);
+	merge(massive_products, left, middle, right);
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+// Сортирует по цене, максимальная цена идёт вначале (сортировка вставками)
 void sort_by_max_price(std::vector<Product>& massive_products)
 {
 	const double factor = 1.247;
@@ -96,7 +154,12 @@ void sort_by_max_price(std::vector<Product>& massive_products)
 	}
 }
 
-// Сортировка по количеству товаров в магазинах
+
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+// Сортировка по количеству товаров в магазинах (сортировка выбором)
 void sort_by_count(std::vector<Product>& massive_products)
 {
 	const double factor = 1.247;
@@ -127,4 +190,5 @@ void sort_by_count(std::vector<Product>& massive_products)
 		}
 	}
 }
+
 

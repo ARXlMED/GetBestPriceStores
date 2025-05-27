@@ -1,8 +1,7 @@
 #include "interface.h"
 #include <limits>
 #include <iostream>
-#include "registrathion.h"
-#include "authorizathion.h"
+#include "accounts.h"
 #include "cin_int.h"
 #include "products_file.h"
 #include "data_all_stores.h"

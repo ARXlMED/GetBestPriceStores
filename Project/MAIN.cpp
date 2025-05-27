@@ -6,9 +6,7 @@
 #include "Map.h"
 
 #include "cin_int.h"
-#include "load_data_accounts.h"
-#include "authorizathion.h"
-#include "registrathion.h"
+#include "accounts.h"
 #include "debug.h"
 #include "interface.h"
 #include "data_all_stores.h"

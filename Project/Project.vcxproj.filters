@@ -24,16 +24,7 @@
     <ClCompile Include="enter_secret.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="load_data_accounts.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="authorizathion.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="check_rus_let.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="registrathion.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="debug.cpp">
@@ -83,19 +74,7 @@
     <ClInclude Include="enter_secret.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="load_data_accounts.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="include_for_accounts.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="authorizathion.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="check_rus_let.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="registrathion.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="debug.h">

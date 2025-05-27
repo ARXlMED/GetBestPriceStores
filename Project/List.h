@@ -16,18 +16,28 @@ private:
 	part_list* end = nullptr;
 
 public:
+	
+	// Конструктор стандартный
+	list() = default;
 
-	//~list() 
-	//{
-	//	part_list* current = begin;
-	//	while (current != nullptr) 
-	//	{
-	//		part_list* next = current->ptr;
-	//		delete current;
-	//		current = next;
-	//	}
-	//	begin = end = nullptr;
-	//}
+	// Деструктор для избежания утечек памяти
+	~list() 
+	{
+		part_list* current = begin;
+		while (current != nullptr) 
+		{
+			part_list* next = current->ptr;
+			delete current;
+			current = next;
+		}
+		begin = end = nullptr;
+	}
+
+	// Копирующий конструктор
+	list(const list&) = delete;
+
+	// Оператор присваивания
+	list& operator=(const list&) = delete;
 
 	// Добавляет элемент в начало списка
 	void push_begin(T value)

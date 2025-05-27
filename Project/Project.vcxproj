@@ -129,7 +129,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="accounts.cpp" />
-    <ClCompile Include="authorizathion.cpp" />
     <ClCompile Include="check_rus_let.cpp" />
     <ClCompile Include="cin_int.cpp" />
     <ClCompile Include="cities.cpp" />
@@ -139,17 +138,14 @@
     <ClCompile Include="getbestprice.cpp" />
     <ClCompile Include="hash.cpp" />
     <ClCompile Include="interface.cpp" />
-    <ClCompile Include="load_data_accounts.cpp" />
     <ClCompile Include="MAIN.cpp" />
     <ClCompile Include="products_func.cpp" />
     <ClCompile Include="products_sorting.cpp" />
     <ClCompile Include="Product.cpp" />
     <ClCompile Include="products_file.cpp" />
-    <ClCompile Include="registrathion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="accounts.h" />
-    <ClInclude Include="authorizathion.h" />
     <ClInclude Include="check_rus_let.h" />
     <ClInclude Include="cin_int.h" />
     <ClInclude Include="cities.h" />
@@ -158,16 +154,13 @@
     <ClInclude Include="enter_secret.h" />
     <ClInclude Include="getbestprice.h" />
     <ClInclude Include="hash.h" />
-    <ClInclude Include="include_for_accounts.h" />
     <ClInclude Include="interface.h" />
     <ClInclude Include="List.h" />
-    <ClInclude Include="load_data_accounts.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="products_func.h" />
     <ClInclude Include="products_sorting.h" />
     <ClInclude Include="Product.h" />
     <ClInclude Include="products_file.h" />
-    <ClInclude Include="registrathion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
