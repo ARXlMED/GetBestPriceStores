@@ -15,9 +15,18 @@ void quick_sort(std::vector<Product>& massive_products, int low, int high);
 // Сортирует по цене, минимальная цена идёт вначале (сортировка слиянием)
 void sort_by_min_price(std::vector<Product>& massive_products);
 
+// Сортирует между собой два массива от left до middle и от midddle + 1 до right
+void merge(std::vector<Product>& massive_products, int left, int middle, int right);
+
+// Рекурсивные вызовы сортировки слиянием
+void merge_sort(std::vector<Product>& massive_products, int left, int right);
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-// Сортирует по цене, максимальная цена идёт вначале
+// Сортирует по цене, максимальная цена идёт вначале (сортировка вставками)
 void sort_by_max_price(std::vector<Product>& massive_products);
+
+// Сортировка вставками
+void insertion_sort(std::vector<Product>& massive_products);
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // Сортировка по количеству товаров в магазинах
