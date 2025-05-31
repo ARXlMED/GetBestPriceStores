@@ -111,7 +111,7 @@ void insertion_sort(std::vector<Product>& massive_products)
 		int j = i - 1;
 		while (j >= 0 && key.min_price > massive_products[j].min_price)
 		{
-			massive_products[j] = massive_products[j + 1];
+			massive_products[j + 1] = massive_products[j];
 			j--;
 		}
 		massive_products[j + 1] = key;

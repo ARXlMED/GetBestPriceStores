@@ -49,6 +49,7 @@ int main()
 	{
 		try
 		{
+			// Вызвать главное меню, где показываются функции доступные текущему пользователю
 			main_menu(user_status);
 
 			int answer = cin_int();
@@ -120,7 +121,7 @@ int main()
 					}
 					else
 					{
-						massive_products[index].change_price(user_status, all_name_stores);
+						massive_products[index].change_price(all_name_stores);
 						massive_products[index].sort_by_name();
 					}
 					break;

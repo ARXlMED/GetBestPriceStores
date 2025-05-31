@@ -129,10 +129,12 @@ int get_index_product(std::vector<Product>& massive_products)
 		{
 			for (int i = 0; i < massive_products.size(); i++)
 			{
+				std::cout << i + 1 << ". ";
 				massive_products[i].print_data();
 			}
 			std::cout << "Введите индекс требуемого товара:\n";
 			index = cin_int();
+			index--;
 			if (index >= 0 && index < massive_products.size()) break;
 			else std::cout << "Вы ввели недействительный индекс\n";
 		}

@@ -2,14 +2,19 @@
 #include "Product.h"
 #include "Map.h"
 
+// Глобальная переменная хранящая город текущего пользователя
 inline std::string now_city = "Минск";
 
+// Возвращает значение из inline переменной now_city
 std::string get_now_city();
 
+// Смена текущего города у данного аккаунта
 void change_now_city(map<std::string, double> cities);
 
+// Загрузить все города из файла
 map<std::string, double> load_all_cities();
 
+// Добавить новый город в структуру и в файл
 void new_city(map<std::string, double>& cities);
 
 // Получить дополнительную цену для данного товара для данного магазина для данного города

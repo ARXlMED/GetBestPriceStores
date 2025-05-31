@@ -14,13 +14,14 @@ struct Product
 	std::vector<double> Stores_base_price;
 	std::vector<int> Stores_num_products;
 
+	// Коструктор по умолчанию
 	Product() = default;
 
 	// Конструктор
 	Product(std::string name, std::string main_info, double mass);
 
 	// Определяет существует ли вообще данный магазин в списке магазинов товара и если да то выдаёт его номер в массиве
-	int place_store_vector(int user_status, int num_store, std::vector<std::string>& all_name_stores);
+	int place_store_vector(int num_store, std::vector<std::string>& all_name_stores);
 
 	// Обменивает все данные магазинов
 	void swap_data_stores(int first_index, int second_index);
@@ -38,16 +39,16 @@ struct Product
 	int binary_search_store(int index_store, std::vector<std::string>& all_name_stores);
 
 	// Изменяет уже существующую цену в магазине или добавляет новую с новым магазином (требует права администратора)
-	void change_price(int user_status, std::vector<std::string>& all_name_stores);
+	void change_price(std::vector<std::string>& all_name_stores);
 	
 	// Изменяет главную информацию о товаре (требует права администратора)
-	void change_main_info(int user_status);
+	void change_main_info();
 
 	// Выводит в консоль магазины и их цены
-	void print_price(int user_status);
+	void print_price();
 
 	// Удаляет файл в данном случае "Products.txt" (требует права администратора)
-	void delete_file(int user_status);
+	void delete_file();
 
 	// Удаляет данные по определенному магазину
 	void delete_store();

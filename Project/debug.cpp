@@ -15,10 +15,3 @@ void debug_accounts(int now_size, std::vector<list<std::string>> &massive_logins
 	}
 }
 
-void debug_products(std::vector<Product> &massive_products)
-{
-	for (int i = 0; i < massive_products.size(); i++)
-	{
-		massive_products[i].print_data();
-	}
-}

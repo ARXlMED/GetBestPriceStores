@@ -24,6 +24,7 @@ void change_now_city(map<std::string, double> cities)
 	else std::cout << "Данного города нет в списке доступных для доставки\n";
 }
 
+// Загрузить все города из файла
 map<std::string, double> load_all_cities()
 {
 	map<std::string, double> cities;
@@ -43,7 +44,7 @@ map<std::string, double> load_all_cities()
 	return cities;
 }
 
-// Из за самой струтуры map нельзя выгружать сразу все города
+// Добавить новый город в структуру и в файл
 void new_city(map<std::string, double>& cities)
 {
 	std::string name;

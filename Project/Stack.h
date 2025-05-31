@@ -72,6 +72,7 @@ struct stack
 		return data;
 	}
 
+	// Если пуст -> true, заполнен -> false
 	bool empty()
 	{
 		if (stackTop == nullptr) return true;

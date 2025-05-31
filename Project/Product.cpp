@@ -13,7 +13,7 @@ Product::Product(std::string name, std::string main_info, double mass)
 }
 
 // Определяет существует ли вообще данный магазин в списке магазинов товара и если да то выдаёт его номер в массиве
-int Product::place_store_vector(int user_status, int num_store, std::vector<std::string>& all_name_stores)
+int Product::place_store_vector(int num_store, std::vector<std::string>& all_name_stores)
 {
 	for (int i = 0; i < Stores.size(); i++)
 	{
@@ -128,77 +128,63 @@ int Product::binary_search_store(int index_store, std::vector<std::string>& all_
 } 
 
 // Изменяет уже существующую цену в магазине или добавляет новую с новым магазином (требует права администратора)
-void Product::change_price(int user_status, std::vector<std::string>& all_name_stores)
+void Product::change_price(std::vector<std::string>& all_name_stores)
 {
-	if (user_status == 2)
+	std::cout << "Далее вам будет представлен список существующих магазинов выберите (цифрой) для какого из них вы хотите установить цену: \n";
+	for (int i = 0; i < all_name_stores.size(); i++)
 	{
-		std::cout << "Далее вам будет представлен список существующих магазинов выберите (цифрой) для какого из них вы хотите установить цену: \n";
-		for (int i = 0; i < all_name_stores.size(); i++)
+		std::cout << i + 1 << ". " << all_name_stores[i] << " ";
+		if ((i + 1) % 10 == 0)
 		{
-			std::cout << i + 1 << ". " << all_name_stores[i] << " ";
-			if ((i + 1) % 10 == 0)
-			{
-				std::cout << "\n";
-			}
+			std::cout << "\n";
 		}
-		int num_all_store;
-		cin_int(num_all_store);
-		if (num_all_store < 1 || num_all_store > all_name_stores.size())
-		{
-			std::cout << "Номер магазина является неккоректным \n";
-		}
-		else
-		{
-			num_all_store--;
-			int price, num_products;
-			std::cout << "Введите цену в данном магазине: \n";
-			cin_int(price);
-			std::cout << "Введите количество товаров в данном магазине: \n";
-			cin_int(num_products);
-			if (price > 0)
-			{
-				int num_store = place_store_vector(user_status, num_all_store, all_name_stores);
-				if (num_store == -1) // Если магазина не существует в текущем списке то добавить его в противном случае изменить цену и количество
-				{
-					Stores.push_back(all_name_stores[num_all_store]);
-					Stores_base_price.push_back(price);
-					Stores_num_products.push_back(num_products);
-					sort_by_name();
-				}
-				else
-				{
-					Stores_base_price[num_store] = price;
-					Stores_num_products[num_store] = num_products;
-				}
-			}
-			else
-			{
-				std::cout << "Вы ввели отрицательную цену \n";
-			}
-		}
+	}
+	int num_all_store;
+	cin_int(num_all_store);
+	if (num_all_store < 1 || num_all_store > all_name_stores.size())
+	{
+		std::cout << "Номер магазина является неккоректным \n";
 	}
 	else
 	{
-		std::cout << "Вам недоступна данная функция так как вы не являетесь администратором. \n";
+		num_all_store--;
+		int price, num_products;
+		std::cout << "Введите цену в данном магазине: \n";
+		cin_int(price);
+		std::cout << "Введите количество товаров в данном магазине: \n";
+		cin_int(num_products);
+		if (price > 0)
+		{
+			int num_store = place_store_vector(num_all_store, all_name_stores);
+			if (num_store == -1) // Если магазина не существует в текущем списке то добавить его в противном случае изменить цену и количество
+			{
+				Stores.push_back(all_name_stores[num_all_store]);
+				Stores_base_price.push_back(price);
+				Stores_num_products.push_back(num_products);
+				sort_by_name();
+			}
+			else
+			{
+				Stores_base_price[num_store] = price;
+				Stores_num_products[num_store] = num_products;
+			}
+		}
+		else
+		{
+			std::cout << "Вы ввели отрицательную цену \n";
+		}
 	}
 }
 
 // Изменяет главную информацию о товаре (требует права администратора)
-void Product::change_main_info(int user_status)
+void Product::change_main_info()
 {
-	if (user_status == 2)
-	{
-		std::cout << "Введите новое описание для товара: \n";
-		std::cin >> main_info;
-	}
-	else
-	{
-		std::cout << "Вам недоступна данная функция так как вы не являетесь администратором. \n";
-	}
+	std::cout << "Введите новое описание для товара: \n";
+	std::cin >> main_info;
 }
 
 // Выводит в консоль магазины и их начальные цены без учёта доставки
-void Product::print_price(int user_status)
+void Product::print_price()
 {
 	for (int i = 0; i < Stores.size(); i++)
 	{
@@ -207,16 +193,9 @@ void Product::print_price(int user_status)
 }
 
 // Удаляет файл в данном случае "Products.txt" (требует права администратора)
-void Product::delete_file(int user_status)
+void Product::delete_file()
 {
-	if (user_status == 2)
-	{
-		std::remove("Products.txt");
-	}
-	else
-	{
-		std::cout << "Вам недоступна данная функция так как вы не являетесь администратором. \n";
-	}
+	std::remove("Products.txt");
 }
 
 // Удаляет данные по определенному магазину
