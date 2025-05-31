@@ -62,7 +62,9 @@ void new_city(map<std::string, double>& cities)
 	out.close();
 }
 
-double get_addict_price(Product product, map<std::string, double> cities, std::string city)
+// ѕолучить дополнительную цену дл€ данного товара дл€ данного магазина дл€ данного города
+double get_addict_price(Product& product, int index_store_in_product, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, map<std::string, double>* massive_cities, std::string city)
 {
-	return product.mass * cities.get_value(city) / 100 /* добавить определенный коэффициент от определенного магазина, условно указать цену за 100 км (дл€ удобства) и разделить на 100*/;
+	if (massive_cities == nullptr) return 0;
+	else return product.mass * (*massive_cities).get_value(city) / 100 * product.get_koef_by_store(index_store_in_product, all_name_stores, all_coef_stores);
 }

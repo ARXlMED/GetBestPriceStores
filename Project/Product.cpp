@@ -1,6 +1,7 @@
 #include "Product.h"
 #include "data_all_stores.h"
 #include "cin_int.h"
+#include "cities.h"
 
 
 // Конструктор
@@ -24,12 +25,20 @@ int Product::place_store_vector(int user_status, int num_store, std::vector<std:
 	return -1;
 }
 
-// Гарантирует что данные магазинов не перемешаются
-void Product::swapdatastores(int first_index, int second_index)
+// Обменивает все данные магазинов
+void Product::swap_data_stores(int first_index, int second_index)
 {
 	std::swap(Stores[first_index], Stores[second_index]);
 	std::swap(Stores_base_price[first_index], Stores_base_price[second_index]);
 	std::swap(Stores_num_products[first_index], Stores_num_products[second_index]);
+}
+
+// Устанавливает данные магазинов второго индекса данным магазина первого индекса
+void Product::set_data_stores(int first_index, int second_index)
+{
+	Stores[first_index] = Stores[second_index];
+	Stores_base_price[first_index] = Stores_base_price[second_index];
+	Stores_num_products[first_index] = Stores_num_products[second_index];
 }
 
 // Сортирует магазины по алфавиту (сортировка расчёской)
@@ -39,23 +48,23 @@ void Product::sort_by_name()
 	int amountstores = Stores.size();
 	int step = amountstores - 1;
 
-	while (step >= 1) // Расчёска почти сортирует массив
+	while (step >= 1)
 	{
 		for (int i = 0; i + step < amountstores; i++)
 		{
 			if (Stores[i] < Stores[i + step])
 			{
-				swapdatastores(i, i + step);
+				swap_data_stores(i, i + step);
 			}
 		}
 		step /= factor;
 	}
 
-	for (int i = 0; i + 1 < amountstores; i++) // Проход пузырьковой для закрепления
+	for (int i = 0; i + 1 < amountstores; i++) 
 	{
 		if (Stores[i] < Stores[i + 1])
 		{
-			swapdatastores(i, i + 1);
+			swap_data_stores(i, i + 1);
 		}
 	}
 }
@@ -276,4 +285,10 @@ int Product::get_koef_by_store(int index, std::vector<std::string>& all_name_sto
 		if (Stores[index] == all_name_stores[i]) return all_coef_stores[i];
 	}
 	return koef;
+}
+
+// Выдаёт полную цену для индекса данного магазина в товаре
+double Product::get_full_price(int index, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, map<std::string, double>* massive_cities, std::string city)
+{
+	return Stores_base_price[index] + get_addict_price(*this, index, all_name_stores, all_coef_stores, massive_cities);
 }

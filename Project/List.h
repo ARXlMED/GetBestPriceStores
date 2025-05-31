@@ -2,9 +2,8 @@
 #include <iostream>
 
 template <class T>
-class list
+struct list
 {
-private:
 	struct part_list
 	{
 		T data{};
@@ -14,8 +13,6 @@ private:
 
 	part_list* begin = nullptr;
 	part_list* end = nullptr;
-
-public:
 	
 	// Конструктор стандартный
 	list() = default;

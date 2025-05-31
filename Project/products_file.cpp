@@ -42,6 +42,9 @@ std::vector<Product> load_products()
 
 			product.main_info = line.substr(devide_pos3 + 1);
 
+			product.min_price = product.get_min_price();
+			product.sum_count = product.get_sum_count();
+
 			vector_products.push_back(product);
 		}
 	}

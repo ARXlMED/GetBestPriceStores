@@ -29,5 +29,8 @@ void sort_by_max_price(std::vector<Product>& massive_products);
 void insertion_sort(std::vector<Product>& massive_products);
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-// Сортировка по количеству товаров в магазинах
+// Сортировка по количеству товаров в магазинах (сортировка выбором)
 void sort_by_count(std::vector<Product>& massive_products);
+
+// Сортировка выбором
+void selecthion_sort(std::vector<Product>& massive_products);

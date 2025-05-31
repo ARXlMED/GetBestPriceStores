@@ -3,13 +3,10 @@
 #include <vector>
 
 template <class Key, class Value>
-class map
+struct map
 {
-private:
 	static constexpr int size_hash_table = 1543;
 	std::vector<Value> hash_table = std::vector<Value>(size_hash_table);
-	
-public:
 
 	void add_value(Key key, Value value)
 	{

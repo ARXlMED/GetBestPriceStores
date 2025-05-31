@@ -49,33 +49,7 @@ void quick_sort(std::vector<Product>& massive_products, int low, int high)
 // Сортирует по цене, минимальная цена идёт вначале (сортировка слиянием)
 void sort_by_min_price(std::vector<Product>& massive_products)
 {
-	const double factor = 1.247;
-	int amountstores = massive_products.size();
-	int step = amountstores - 1;
-
-	while (step >= 1) // Расчёска почти сортирует массив
-	{
-		for (int i = 0; i + step < amountstores; i++)
-		{
-			if (massive_products[i].get_min_price() > massive_products[i + step].get_min_price())
-			{
-				Product temp = massive_products[i];
-				massive_products[i] = massive_products[i + step];
-				massive_products[i + step] = temp;
-			}
-		}
-		step /= factor;
-	}
-
-	for (int i = 0; i + 1 < amountstores; i++) // Проход пузырьковой для закрепления
-	{
-		if (massive_products[i].get_min_price() > massive_products[i + step].get_min_price())
-		{
-			Product temp = massive_products[i];
-			massive_products[i] = massive_products[i + step];
-			massive_products[i + step] = temp;
-		}
-	}
+	merge_sort(massive_products, 0, massive_products.size() - 1);
 }
 
 // Сортирует между собой два массива от left до middle и от midddle + 1 до right
@@ -96,7 +70,7 @@ void merge(std::vector<Product>& massive_products, int left, int middle, int rig
 	int i = 0, j = 0, k = left;
 	while (i < left_massive.size() && j < right_massive.size())
 	{
-		if (left_massive[i].get_min_price() <= right_massive[j].get_min_price())
+		if (left_massive[i].min_price <= right_massive[j].min_price)
 		{
 			massive_products[k++] = left_massive[i++];
 		}
@@ -125,33 +99,7 @@ void merge_sort(std::vector<Product>& massive_products, int left, int right)
 // Сортирует по цене, максимальная цена идёт вначале (сортировка вставками)
 void sort_by_max_price(std::vector<Product>& massive_products)
 {
-	const double factor = 1.247;
-	int amountstores = massive_products.size();
-	int step = amountstores - 1;
-
-	while (step >= 1) // Расчёска почти сортирует массив
-	{
-		for (int i = 0; i + step < amountstores; i++)
-		{
-			if (massive_products[i].get_min_price() < massive_products[i + step].get_min_price())
-			{
-				Product temp = massive_products[i];
-				massive_products[i] = massive_products[i + step];
-				massive_products[i + step] = temp;
-			}
-		}
-		step /= factor;
-	}
-
-	for (int i = 0; i + 1 < amountstores; i++) // Проход пузырьковой для закрепления
-	{
-		if (massive_products[i].get_min_price() < massive_products[i + step].get_min_price())
-		{
-			Product temp = massive_products[i];
-			massive_products[i] = massive_products[i + step];
-			massive_products[i + step] = temp;
-		}
-	}
+	insertion_sort(massive_products);
 }
 
 // Сортировка вставками
@@ -161,7 +109,7 @@ void insertion_sort(std::vector<Product>& massive_products)
 	{
 		Product key = massive_products[i];
 		int j = i - 1;
-		while (j >= 0 && key.get_min_price() > massive_products[j].get_min_price())
+		while (j >= 0 && key.min_price > massive_products[j].min_price)
 		{
 			massive_products[j] = massive_products[j + 1];
 			j--;
@@ -174,34 +122,51 @@ void insertion_sort(std::vector<Product>& massive_products)
 // Сортировка по количеству товаров в магазинах (сортировка выбором)
 void sort_by_count(std::vector<Product>& massive_products)
 {
-	const double factor = 1.247;
-	int amountstores = massive_products.size();
-	int step = amountstores - 1;
+	selecthion_sort(massive_products);
+}
 
-	while (step >= 1) // Расчёска почти сортирует массив
+// Сортировка выбором
+void selecthion_sort(std::vector<Product>& massive_products)
+{
+	for (int i = 0; i < massive_products.size() - 1; i++)
 	{
-		for (int i = 0; i + step < amountstores; i++)
+		int min_index = i;
+		for (int j = i + 1; j < massive_products.size(); j++)
 		{
-			if (massive_products[i].get_sum_count() > massive_products[i + step].get_sum_count())
+			if (massive_products[min_index].sum_count > massive_products[j].sum_count)
 			{
-				Product temp = massive_products[i];
-				massive_products[i] = massive_products[i + step];
-				massive_products[i + step] = temp;
+				min_index = j;
 			}
 		}
-		step /= factor;
-	}
-
-	for (int i = 0; i + 1 < amountstores; i++) // Проход пузырьковой для закрепления
-	{
-		if (massive_products[i].get_sum_count() > massive_products[i + step].get_sum_count())
-		{
-			Product temp = massive_products[i];
-			massive_products[i] = massive_products[i + step];
-			massive_products[i + step] = temp;
-		}
+		std::swap(massive_products[i], massive_products[min_index]);
 	}
 }
 
 
-
+//const double factor = 1.247;
+//int amountstores = massive_products.size();
+//int step = amountstores - 1;
+//
+//while (step >= 1) // Расчёска почти сортирует массив
+//{
+//	for (int i = 0; i + step < amountstores; i++)
+//	{
+//		if (massive_products[i].get_min_price() < massive_products[i + step].get_min_price())
+//		{
+//			Product temp = massive_products[i];
+//			massive_products[i] = massive_products[i + step];
+//			massive_products[i + step] = temp;
+//		}
+//	}
+//	step /= factor;
+//}
+//
+//for (int i = 0; i + 1 < amountstores; i++) // Проход пузырьковой для закрепления
+//{
+//	if (massive_products[i].get_min_price() < massive_products[i + step].get_min_price())
+//	{
+//		Product temp = massive_products[i];
+//		massive_products[i] = massive_products[i + step];
+//		massive_products[i + step] = temp;
+//	}
+//}

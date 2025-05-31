@@ -1,13 +1,15 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include "Map.h"
 
-struct Product // Лучше переделать в структуру от греха подальше
+struct Product 
 {
-//private:
 	std::string name;
 	std::string main_info;
 	double mass = 0;
+	double min_price = 0;
+	int sum_count = 0;
 	std::vector<std::string> Stores;
 	std::vector<double> Stores_base_price;
 	std::vector<int> Stores_num_products;
@@ -20,8 +22,11 @@ struct Product // Лучше переделать в структуру от греха подальше
 	// Определяет существует ли вообще данный магазин в списке магазинов товара и если да то выдаёт его номер в массиве
 	int place_store_vector(int user_status, int num_store, std::vector<std::string>& all_name_stores);
 
-	// Гарантирует что данные магазинов не перемешаются
-	void swapdatastores(int first_index, int second_index);
+	// Обменивает все данные магазинов
+	void swap_data_stores(int first_index, int second_index);
+
+	// Устанавливает данные магазинов второго индекса данным магазина первого индекса
+	void set_data_stores(int first_index, int second_index);
 
 	// Сортирует магазины по алфавиту (сортировка расчёской)
 	void sort_by_name();
@@ -61,4 +66,7 @@ struct Product // Лучше переделать в структуру от греха подальше
 
 	// Выдаёт коэффициент за доставку в магазине исходя из его индекса в массиве товара
 	int get_koef_by_store(int index, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores);
+
+	// Выдаёт полную цену для индекса данного магазина в товаре
+	double get_full_price(int index, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, map<std::string, double>* massive_cities, std::string city);
 };

@@ -1,86 +1,85 @@
 #include "getbestprice.h"
 #include "products_func.h"
 #include "cities.h"
-#include "interface.h"
 #include <string>
-#include "Product.h"
+#include "Stack.h"
 
 // Функция для поиска выгодных товаров в интернет магазинах
-void get_best_price(std::vector<Product>& products, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, map<std::string, double>* massive_cities)
+void get_best_price(std::vector<Product>& massive_products, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, map<std::string, double>* massive_cities)
 {
-	int index = get_index_product(products);
-	sort_by_price(products[index], all_name_stores, all_coef_stores, massive_cities);
+	int index = get_index_product(massive_products);
+	Product product = massive_products[index];
+	iterative_quick_sort(product, all_name_stores, all_coef_stores, massive_cities);
 }
 
-// Сортирует методом расчёски массив по цене, почему он здесь, а не в классе и почему передаём по значению,
-// а не по ссылке более подробно в комментарии в классе
-void sort_by_price(Product product, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, map<std::string, double>* massive_cities)
+// Определяет границу где разделяется массив на две части, до элемента возвращаемого идут элементы меньше некоторого pivot, а после больше pivot 
+int partition(Product product, int left, int right, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, map<std::string, double>* massive_cities)
 {
-	/*const double factor = 1.247;
-	int amountstores = product.Stores.size();
-	std::cout << amountstores << "\n";
-	int step = amountstores - 1;*/
-
-	// Выполняется, если города не важны, то есть если осуществляется поиск без учёта доставки 
-	if (massive_cities == nullptr)
+	int pivot_index = left + (right - left) / 2;
+	double pivot_price = product.Stores_base_price[pivot_index] + get_addict_price(product, pivot_index, all_name_stores, all_coef_stores, massive_cities);
+	int i = left - 1;
+	int j = right + 1;
+	while (true)
 	{
-		//while (step >= 1) // Расчёска почти сортирует массив
-		//{
-		//	for (int i = 0; i + step < amountstores; i++)
-		//	{
-		//		if (product.Stores_base_price[i] > product.Stores_base_price[i + step])
-		//		{
-		//			product.swapdatastores(i, i + step);
-		//		}
-		//	}
-		//	step /= factor;
-		//}
+		do
+		{
+			i++;
+		} while (product.get_full_price(i, all_name_stores, all_coef_stores, massive_cities, now_city) < pivot_price);
 
-		//for (int i = 0; i + 1 < amountstores; i++) // Проход пузырьковой для закрепления
-		//{
-		//	if (product.Stores_base_price[i] > product.Stores_base_price[i + 1])
-		//	{
-		//		product.swapdatastores(i, i + 1);
-		//	}
-		//}
+		do
+		{
+			j--;
+		} while (product.get_full_price(j, all_name_stores, all_coef_stores, massive_cities, now_city) > pivot_price);
 
-		//std::cout << "Цены на товар в магазинах от лучшей к худшей (без учёта доставки): \n";
+		if (i >= j) return j;
 
-		//for (int i = 0; i < amountstores; i++)
-		//{
-		//	std::cout << product.Stores[i] << ": " << product.Stores_base_price[i] << " BYN \n";
-		//}
+		product.swap_data_stores(i, j);
 	}
-	// Выполняется, если города важны, то есть если осуществляется поиск с учётом доставки 
-	else
+}
+
+// Итеративная быстрая сортировка
+void iterative_quick_sort(Product product, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, map<std::string, double>* massive_cities)
+{
+	if (product.Stores.size() <= 1) return;
+	stack<std::pair<int, int>> stack_borders;
+	stack_borders.push({ 0, product.Stores.size() - 1 });
+	while (!stack_borders.empty())
 	{
-		double addict_price = get_addict_price(product, *massive_cities, now_city);
+		auto[left, right] = stack_borders.top_pop();
+		// Переключаемся на сортировку выбором при малом количестве элементов (где мы изначально просчиываем все значения и храним их чтобы не вызывать постоянно функцию получения цены)
+		if (right - left < 16)
+		{
+			std::vector<double> values;
+			for (int i = left; i < right; i++)
+			{
+				values.push_back(product.get_full_price(i, all_name_stores, all_coef_stores, massive_cities, now_city));
+			}
+			for (int i = left; i < right - 1; i++)
+			{
+				int min_index = i;
+				for (int j = i + 1; j < right; j++)
+				{
+					if (values[min_index] > values[j])
+					{
+						min_index = j;
+					}
+				}
+				product.swap_data_stores(min_index, i);
+			}
+			continue;
+		}
 
-		//while (step >= 1) // Расчёска почти сортирует массив
-		//{
-		//	for (int i = 0; i + step < amountstores; i++)
-		//	{
-		//		if (product.Stores_base_price[i] + addict_price * product.get_koef_by_store(i, all_name_stores, all_coef_stores) > product.Stores_base_price[i + step] + addict_price * product.get_koef_by_store(i + step, all_name_stores, all_coef_stores))
-		//		{
-		//			product.swapdatastores(i, i + step);
-		//		}
-		//	}
-		//	step /= factor;
-		//}
+		int p = partition(product, left, right, all_name_stores, all_coef_stores, massive_cities);
 
-		//for (int i = 0; i + 1 < amountstores; i++) // Проход пузырьковой для закрепления
-		//{
-		//	if (product.Stores_base_price[i] + addict_price * product.get_koef_by_store(i, all_name_stores, all_coef_stores) > product.Stores_base_price[i + 1] + addict_price * product.get_koef_by_store(i + 1, all_name_stores, all_coef_stores))
-		//	{
-		//		product.swapdatastores(i, i + 1);
-		//	}
-		//}
-
-		//std::cout << "Цены на товар в магазинах от лучшей к худшей (с учётом доставки): \n";
-
-		//for (int i = 0; i < amountstores; i++)
-		//{
-		//	std::cout << product.Stores[i] << ": " << product.Stores_base_price[i] + addict_price * product.get_koef_by_store(i, all_name_stores, all_coef_stores) << " BYN \n";
-		//}
+		if (p - left < right - p - 1)
+		{
+			if (left < p) stack_borders.push({ left, p });
+			if (p + 1 < right) stack_borders.push({ p + 1, right });
+		}
+		else
+		{
+			if (p + 1 < right) stack_borders.push({ p + 1, right });
+			if (left < p) stack_borders.push({ left, p });
+		}
 	}
 }
