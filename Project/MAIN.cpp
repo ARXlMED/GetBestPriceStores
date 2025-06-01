@@ -41,7 +41,7 @@ int main()
 	load_data_accounts(now_size, massive_logins, massive_hashes, massive_account_cities);
 	load_all_stores(all_name_stores, all_coef_stores);
 
-	// Регистрация/авторизация
+	// Регистрация или авторизация
 	int user_status = main_menu_registrathion(now_size, massive_logins, massive_hashes, massive_account_cities, massive_cities);
 
 	// Главное меню админа/пользователя/гостя

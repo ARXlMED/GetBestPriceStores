@@ -11,6 +11,11 @@ void get_best_price(std::vector<Product>& massive_products, std::vector<std::str
 	Product product = massive_products[index];
 
 	if (product.Stores.size() <= 1) return;
+	std::vector<double> values;
+	for (int i = 0; i <= product.Stores.size() - 1; i++)
+	{
+		values.push_back(product.get_full_price(i, all_name_stores, all_coef_stores, massive_cities, now_city));
+	}
 	stack<std::pair<int, int>> stack_borders;
 	stack_borders.push({ 0, product.Stores.size() - 1 });
 	while (!stack_borders.empty())
@@ -19,11 +24,6 @@ void get_best_price(std::vector<Product>& massive_products, std::vector<std::str
 		// Переключаемся на сортировку выбором при малом количестве элементов (где мы изначально просчиываем все значения и храним их чтобы не вызывать постоянно функцию получения цены)
 		if (right - left < 16)
 		{
-			std::vector<double> values;
-			for (int i = left; i <= right; i++)
-			{
-				values.push_back(product.get_full_price(i, all_name_stores, all_coef_stores, massive_cities, now_city));
-			}
 			for (int i = left; i < right; i++)
 			{
 				int min_index = i;
@@ -54,7 +54,7 @@ void get_best_price(std::vector<Product>& massive_products, std::vector<std::str
 		}
 	}
 
-	product.print_all_data();
+	product.print_all_data(values);
 }
 
 // Определяет границу где разделяется массив на две части, до элемента возвращаемого идут элементы меньше некоторого pivot, а после больше pivot 

@@ -56,4 +56,3 @@ FrostFinds 6
 GlimmerGate 4
 HorizonHaven 9
 InfinityItem 10
- 10

@@ -220,13 +220,23 @@ void Product::print_data()
 	std::cout << name << "\n";
 }
 
-// Выводит всю информацию о товаре
+// Выводит всю информацию о товаре с базовой ценой
 void Product::print_all_data()
 {
 	std::cout << name << "\nМасса равна: " << mass << "\nОписание товара: " << main_info << "\n";
 	for (int i = 0; i < Stores.size(); i++)
 	{
-		std::cout << Stores[i] << ": " << Stores_base_price[i] << "BYN\n";
+		std::cout << Stores[i] << ": " << Stores_base_price[i] << "BYN. " << "Количество товара: " << Stores_num_products[i] << "\n";
+	}
+}
+
+// Выводит всю информацию о товаре с ценой за доставку
+void Product::print_all_data(std::vector<double>& values)
+{
+	std::cout << name << "\nМасса равна: " << mass << "\nОписание товара: " << main_info << "\n";
+	for (int i = 0; i < Stores.size(); i++)
+	{
+		std::cout << Stores[i] << ": " << values[i] << "BYN. " << "Количество товара: " << Stores_num_products[i] << "\n";
 	}
 }
 
