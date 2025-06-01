@@ -5,10 +5,10 @@
 #include "cin_int.h"
 
 // Загрузить все данные о названиях магазинах и коэффициентах доставки в них
-void load_all_stores(std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores)
+void load_all_stores(std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, std::string file_name)
 {
 	std::string line;
-	std::ifstream in("All_stores.txt");
+	std::ifstream in(file_name);
 	if (in.is_open())
 	{
 		while (std::getline(in, line))
@@ -24,9 +24,9 @@ void load_all_stores(std::vector<std::string>& all_name_stores, std::vector<int>
 }
 
 // Выгрузить в файл все данные о названиях магазинах и коэффициентах доставки в них
-void upload_all_stores(std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores)
+void upload_all_stores(std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, std::string file_name)
 {
-	std::ofstream out("All_stores.txt");
+	std::ofstream out(file_name);
 	if (out.is_open())
 	{
 		for (int i = 0; i < all_name_stores.size(); i++)

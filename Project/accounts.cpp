@@ -46,15 +46,15 @@ int authorizathion(int size_massive, std::vector<list<std::string>>& massive_log
 }
 
 // Регистрация нового аккаунта с выгрузкой в массив и в файл
-void registrathion(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, map<std::string, double>& massive_cities)
+void registrathion(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, map<std::string, double>& massive_cities, std::string file_name)
 {
 	while (true)
 	{
-		std::ofstream out("Accounts.txt", std::ios::app);
-		std::ifstream in("Accounts.txt");
+		std::ofstream out(file_name, std::ios::app);
+		std::ifstream in(file_name);
 		std::string login, password1, password2;
 		int hash, place_in_massive;
-		bool status = false; // Вспомогательная переменная для выхода из двойного цикла
+		bool status = false;
 		std::cout << "Введите логин (можно использовать только латинские буквы, цифры и специальные символы): \n";
 		std::cin >> login;
 		if (check_rus_let(login) == true)
@@ -129,9 +129,9 @@ void registrathion(int size_massive, std::vector<list<std::string>>& massive_log
 }
 
 // Подгрузка в массивы всех данных про аккаунты с файлов
-void load_data_accounts(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities)
+void load_data_accounts(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities, std::string file_name)
 {
-	std::ifstream in("Accounts.txt");
+	std::ifstream in(file_name);
 	int place_in_massive, hash;
 	std::string login, city;
 	if (in.is_open())

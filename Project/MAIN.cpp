@@ -34,15 +34,21 @@ int main()
 	// Объявляем вектора где будут хранится все данные про города
 	std::vector<std::string> all_name_stores;
 	std::vector<int> all_coef_stores;
+
+	// Все имена файлов использующихся для подгрузки данных
+	std::string file_products = "Products.txt";
+	std::string file_accounts = "Accounts.txt";
+	std::string file_cities = "Cities.txt";
+	std::string file_all_stores = "All_stores.txt";
 	
 	// Подгрузка всех данных из файлов
-	std::vector<Product> massive_products = load_products();
-	map<std::string, double> massive_cities = load_all_cities(); 
-	load_data_accounts(now_size, massive_logins, massive_hashes, massive_account_cities);
-	load_all_stores(all_name_stores, all_coef_stores);
+	std::vector<Product> massive_products = load_products(file_products);
+	map<std::string, double> massive_cities = load_all_cities(file_cities); 
+	load_data_accounts(now_size, massive_logins, massive_hashes, massive_account_cities, file_accounts);
+	load_all_stores(all_name_stores, all_coef_stores, file_all_stores);
 
 	// Регистрация или авторизация
-	int user_status = main_menu_registrathion(now_size, massive_logins, massive_hashes, massive_account_cities, massive_cities);
+	int user_status = main_menu_registrathion(now_size, massive_logins, massive_hashes, massive_account_cities, massive_cities, file_accounts);
 
 	// Главное меню админа/пользователя/гостя
 	while (true)
@@ -97,7 +103,7 @@ int main()
 			// Зарегистрироваться (то есть сменить user_status)
 			else if (answer == 6 && user_status == 0)
 			{
-				registrathion(now_size, massive_logins, massive_hashes, massive_cities);
+				registrathion(now_size, massive_logins, massive_hashes, massive_cities, file_accounts);
 				user_status = 1;
 			}
 			// Функции только для администратора
@@ -135,22 +141,22 @@ int main()
 				// Выгрузить данные в файлы
 				case 8:
 				{
-					upload_products(massive_products);
-					upload_all_stores(all_name_stores, all_coef_stores);
+					upload_products(massive_products, file_products);
+					upload_all_stores(all_name_stores, all_coef_stores, file_all_stores);
 					break;
 				}
 				// Загрузить все данные из файлов
 				case 9:
 				{
-					massive_products = load_products();
-					massive_cities = load_all_cities();
-					load_all_stores(all_name_stores, all_coef_stores);
+					massive_products = load_products(file_products);
+					massive_cities = load_all_cities(file_cities);
+					load_all_stores(all_name_stores, all_coef_stores, file_all_stores);
 					break;
 				}
 				// Добавить новый город
 				case 12:
 				{
-					new_city(massive_cities);
+					new_city(massive_cities, file_cities);
 					break;
 				}
 				// Просмотреть логины, хэши и города аккаунтов
@@ -192,7 +198,7 @@ int main()
 				// Выйти из программы (предложиться сохранить конфигурацию)
 				case 16:
 				{
-					exit_with_save(massive_products, all_name_stores, all_coef_stores);
+					exit_with_save(massive_products, all_name_stores, all_coef_stores, file_products, file_all_stores);
 					break;
 				}
 				default:

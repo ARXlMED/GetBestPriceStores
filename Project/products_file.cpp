@@ -4,10 +4,10 @@
 #include <string>
 
 // Загружает все данные из файла
-std::vector<Product> load_products()
+std::vector<Product> load_products(std::string file_name)
 {
 	std::vector<Product> vector_products;
-	std::ifstream in("Products.txt");
+	std::ifstream in(file_name);
 	if (in.is_open())
 	{
 		std::string line;
@@ -53,9 +53,9 @@ std::vector<Product> load_products()
 }
 
 // Выгружает все данные структруры в файл (требует права администратора)
-void upload_products(std::vector<Product>& vector_products)
+void upload_products(std::vector<Product>& vector_products, std::string file_name)
 {
-	std::ofstream out("Products.txt");
+	std::ofstream out(file_name);
 	if (out.is_open())
 	{
 		for (int i = 0; i < vector_products.size(); i++)

@@ -70,7 +70,7 @@ void clear_console()
 }
 
 // Ќачальное главное меню где предлагаетс€ зарегатьс€ или авторизоватьс€ или зайти в качестве гост€
-int main_menu_registrathion(int now_size, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities, map<std::string, double>& massive_cities)
+int main_menu_registrathion(int now_size, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities, map<std::string, double>& massive_cities, std::string file_name)
 {
     std::cout <<
         "=============================================================================================================================================================================================================================================\n"
@@ -86,7 +86,7 @@ int main_menu_registrathion(int now_size, std::vector<list<std::string>>& massiv
     {
     case 1:
     {
-        registrathion(now_size, massive_logins, massive_hashes, massive_cities);
+        registrathion(now_size, massive_logins, massive_hashes, massive_cities, file_name);
         user_status = 1;
         break;
     }
@@ -177,7 +177,7 @@ void exit_without_save()
 }
 
 // ¬ыход из приложени€ с предложением сохранить конфигурацию
-void exit_with_save(std::vector<Product>& massive_products, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores)
+void exit_with_save(std::vector<Product>& massive_products, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, std::string file_product, std::string file_all_stores)
 {
     int answ1, answ2;
     std::cout << "’отите ли вы действительно выйти? (1 - да, 2 - нет) \n";
@@ -188,8 +188,8 @@ void exit_with_save(std::vector<Product>& massive_products, std::vector<std::str
         answ2 = cin_int();
         if (answ2 == 1)
         {
-            upload_products(massive_products);
-            upload_all_stores(all_name_stores, all_coef_stores);
+            upload_products(massive_products, file_product);
+            upload_all_stores(all_name_stores, all_coef_stores, file_all_stores);
         }
         exit(0);
     }

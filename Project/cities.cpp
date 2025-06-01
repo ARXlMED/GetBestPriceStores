@@ -25,10 +25,10 @@ void change_now_city(map<std::string, double> cities)
 }
 
 // Загрузить все города из файла
-map<std::string, double> load_all_cities()
+map<std::string, double> load_all_cities(std::string file_name)
 {
 	map<std::string, double> cities;
-	std::ifstream in("Cities.txt");
+	std::ifstream in(file_name);
 	std::string city, line;
 	double coefficient;
 	if (in.is_open())
@@ -45,7 +45,7 @@ map<std::string, double> load_all_cities()
 }
 
 // Добавить новый город в структуру и в файл
-void new_city(map<std::string, double>& cities)
+void new_city(map<std::string, double>& cities, std::string file_name)
 {
 	std::string name;
 	double lenth;
@@ -54,7 +54,7 @@ void new_city(map<std::string, double>& cities)
 	std::getline(std::cin, name);
 	std::cout << "Введите расстояние до города от Минска \n";
 	lenth = cin_double();
-	std::ofstream out("Cities.txt", std::ios::app);
+	std::ofstream out(file_name, std::ios::app);
 	cities.add_value(name, lenth);
 	if (out.is_open())
 	{
