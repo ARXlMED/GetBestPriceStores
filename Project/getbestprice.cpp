@@ -21,26 +21,21 @@ void get_best_price(std::vector<Product>& massive_products, std::vector<std::str
 	while (!stack_borders.empty())
 	{
 		auto [left, right] = stack_borders.top_pop();
-		// Переключаемся на сортировку выбором при малом количестве элементов (где мы изначально просчиываем все значения и храним их чтобы не вызывать постоянно функцию получения цены)
-		if (right - left < 16)
+		// Переключаемся на сортировку вставками при малом количестве элементов
+		if (right - left < 8)
 		{
-			for (int i = left; i < right; i++)
+			for (int i = left + 1; i <= right; i++)
 			{
-				int min_index = i;
-				for (int j = i + 1; j <= right; j++)
+				for (int j = i; j > left && values[j - 1] > values[j]; j--)
 				{
-					if (values[min_index] > values[j])
-					{
-						min_index = j;
-					}
+					product.swap_data_stores(j - 1, j);
+					std::swap(values[j - 1], values[j]);
 				}
-				product.swap_data_stores(min_index, i);
-				std::swap(values[min_index], values[i]);
 			}
 			continue;
 		}
 
-		int p = partition(product, left, right, all_name_stores, all_coef_stores, massive_cities);
+		int p = partition(product, values, left, right, all_name_stores, all_coef_stores, massive_cities);
 
 		if (p - left < right - p - 1)
 		{
@@ -58,10 +53,10 @@ void get_best_price(std::vector<Product>& massive_products, std::vector<std::str
 }
 
 // Определяет границу где разделяется массив на две части, до элемента возвращаемого идут элементы меньше некоторого pivot, а после больше pivot 
-int partition(Product& product, int left, int right, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, map<std::string, double>* massive_cities)
+int partition(Product& product, std::vector<double>& values, int left, int right, std::vector<std::string>& all_name_stores, std::vector<int>& all_coef_stores, map<std::string, double>* massive_cities)
 {
 	int pivot_index = left + (right - left) / 2;
-	double pivot_price = product.Stores_base_price[pivot_index] + get_addict_price(product, pivot_index, all_name_stores, all_coef_stores, massive_cities);
+	double pivot_price = values[pivot_index];
 	int i = left - 1;
 	int j = right + 1;
 	while (true)
@@ -69,15 +64,16 @@ int partition(Product& product, int left, int right, std::vector<std::string>& a
 		do
 		{
 			i++;
-		} while (product.get_full_price(i, all_name_stores, all_coef_stores, massive_cities, now_city) < pivot_price);
+		} while (values[i] < pivot_price);
 
 		do
 		{
 			j--;
-		} while (product.get_full_price(j, all_name_stores, all_coef_stores, massive_cities, now_city) > pivot_price);
+		} while (values[j] > pivot_price);
 
 		if (i >= j) return j;
 
 		product.swap_data_stores(i, j);
+		std::swap(values[i], values[j]);
 	}
 }

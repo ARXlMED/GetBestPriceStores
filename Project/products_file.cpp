@@ -6,7 +6,7 @@
 // Загружает все данные из файла
 std::vector<Product> load_products(std::string file_name)
 {
-	std::vector<Product> vector_products;
+	std::vector<Product> massive_products;
 	std::ifstream in(file_name);
 	if (in.is_open())
 	{
@@ -45,27 +45,29 @@ std::vector<Product> load_products(std::string file_name)
 			product.min_price = product.get_min_price();
 			product.sum_count = product.get_sum_count();
 
-			vector_products.push_back(product);
+			product.sort_by_name();
+
+			massive_products.push_back(product);
 		}
 	}
 	in.close();
-	return vector_products;
+	return massive_products;
 }
 
 // Выгружает все данные структруры в файл (требует права администратора)
-void upload_products(std::vector<Product>& vector_products, std::string file_name)
+void upload_products(std::vector<Product>& massive_products, std::string file_name)
 {
 	std::ofstream out(file_name);
 	if (out.is_open())
 	{
-		for (int i = 0; i < vector_products.size(); i++)
+		for (int i = 0; i < massive_products.size(); i++)
 		{
-			out << vector_products[i].name << ";" << vector_products[i].mass << ";";
-			for (int j = 0; j < vector_products[i].Stores.size(); j++)
+			out << massive_products[i].name << ";" << massive_products[i].mass << ";";
+			for (int j = 0; j < massive_products[i].Stores.size(); j++)
 			{
-				out << vector_products[i].Stores[j] << " " << vector_products[i].Stores_base_price[j] << " " << vector_products[i].Stores_num_products[j] << " ";
+				out << massive_products[i].Stores[j] << " " << massive_products[i].Stores_base_price[j] << " " << massive_products[i].Stores_num_products[j] << " ";
 			}
-			out << ";" << vector_products[i].main_info << "\n";
+			out << ";" << massive_products[i].main_info << "\n";
 		}
 	}
 	out.close();

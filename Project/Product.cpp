@@ -52,7 +52,7 @@ void Product::sort_by_name()
 	{
 		for (int i = 0; i + step < amountstores; i++)
 		{
-			if (Stores[i] < Stores[i + step])
+			if (Stores[i] > Stores[i + step])
 			{
 				swap_data_stores(i, i + step);
 			}
@@ -62,7 +62,7 @@ void Product::sort_by_name()
 
 	for (int i = 0; i + 1 < amountstores; i++) 
 	{
-		if (Stores[i] < Stores[i + 1])
+		if (Stores[i] > Stores[i + 1])
 		{
 			swap_data_stores(i, i + 1);
 		}
@@ -119,7 +119,7 @@ int Product::binary_search_store(int index_store, std::vector<std::string>& all_
 		{
 			right = middle - 1;
 		}
-		else if (name_store > Stores[middle])
+		else
 		{
 			left = middle + 1;
 		}

@@ -4,11 +4,11 @@
 #include "interface.h"
 
 // ‘ункци€ принимающа€ им€ и наход€ща€ его среди вектора
-int get_product_index_by_name(std::string answer, std::vector<Product>& products)
+int get_product_index_by_name(std::string answer, std::vector<Product>& massive_products)
 {
-	for (int i = 0; i < products.size(); i++)
+	for (int i = 0; i < massive_products.size(); i++)
 	{
-		if (products[i].name == answer)
+		if (massive_products[i].name == answer)
 		{
 			return i;
 		}
@@ -66,7 +66,7 @@ void get_data_products(std::vector<Product>& massive_products)
 }
 
 // Ќаходит все продукты в конкретном магазине
-void get_products_in_store(std::vector<Product>& vector_products, std::vector<std::string>& all_name_stores)
+void get_products_in_store(std::vector<Product>& massive_products, std::vector<std::string>& all_name_stores)
 {
 	for (int i = 0; i < all_name_stores.size(); i++)
 	{
@@ -76,6 +76,7 @@ void get_products_in_store(std::vector<Product>& vector_products, std::vector<st
 			std::cout << "\n";
 		}
 	}
+	std::cout << "\n";
 	int index_store;
 	std::cout << "¬ведите номер магазина дл€ которого вы хотите узнать продукты: ";
 	index_store = cin_int();
@@ -87,13 +88,13 @@ void get_products_in_store(std::vector<Product>& vector_products, std::vector<st
 	}
 	else
 	{
-		for (int i = 0; i < vector_products.size(); i++)
+		for (int i = 0; i < massive_products.size(); i++)
 		{
 			// Ѕинарный поиск названи€ магазина который возвращает индекс магазина в массиве товара (index_store_product)
-			int index_store_product = vector_products[i].binary_search_store(index_store, all_name_stores);
+			int index_store_product = massive_products[i].binary_search_store(index_store, all_name_stores);
 			if (index_store_product != -1)
 			{
-				std::cout << vector_products[i].name << ": " << vector_products[i].Stores_base_price[index_store_product] << " " << vector_products[i].Stores_num_products[index_store_product] << std::endl;
+				std::cout << massive_products[i].name << ": " << massive_products[i].Stores_base_price[index_store_product] << " " << massive_products[i].Stores_num_products[index_store_product] << std::endl;
 			}
 		}
 	}

@@ -210,9 +210,13 @@ int main()
 				std::cout << "Неккоректный ввод\n";
 			}
 		}
+		catch (const std::exception& e) 
+		{
+			std::cout << "Произошла ошибка: " << e.what() << std::endl;
+		}
 		catch (...)
 		{
-			std::cout << "Произошла ошибка \n";
+			std::cout << "Произошла неизвестная ошибка \n";
 		}
 	}
 
