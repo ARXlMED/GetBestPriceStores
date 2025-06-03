@@ -46,7 +46,7 @@ int authorizathion(int size_massive, std::vector<list<std::string>>& massive_log
 }
 
 // Регистрация нового аккаунта с выгрузкой в массив и в файл
-void registrathion(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, map<std::string, double>& massive_cities, std::string file_name)
+void registration(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, map<std::string, double>& massive_cities, std::string file_name)
 {
 	while (true)
 	{

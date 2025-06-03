@@ -48,7 +48,7 @@ int main()
 	load_all_stores(all_name_stores, all_coef_stores, file_all_stores);
 
 	// Регистрация или авторизация
-	int user_status = main_menu_registrathion(now_size, massive_logins, massive_hashes, massive_account_cities, massive_cities, file_accounts);
+	int user_status = main_menu_registration(now_size, massive_logins, massive_hashes, massive_account_cities, massive_cities, file_accounts);
 
 	// Главное меню админа/пользователя/гостя
 	while (true)
@@ -103,7 +103,7 @@ int main()
 			// Зарегистрироваться (то есть сменить user_status)
 			else if (answer == 6 && user_status == 0)
 			{
-				registrathion(now_size, massive_logins, massive_hashes, massive_cities, file_accounts);
+				registration(now_size, massive_logins, massive_hashes, massive_cities, file_accounts);
 				user_status = 1;
 			}
 			// Функции только для администратора
