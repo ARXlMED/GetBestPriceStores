@@ -1,18 +1,22 @@
 #include "hash.h"
 
-// Функция преобразующая строку в хэш длины половины от int (только положительные значения int)
-int gethash(std::string password)
+// Функция вычисления FNV-1a хэша для строки
+unsigned int gethash(std::string text)
 {
-	int hash = 0;
-	for (int i = 0; i < password.length(); i++)
+	unsigned int hash = 2166136261u;
+	const unsigned int prime = 16777619u;
+	
+	for (char c : text)
 	{
-		hash = (hash << 5) - hash + password[i]; // Сдвиг вправо на 5 бит и вычитание эквивалентно умножению на 31 (2^5 = 32 - 1 = 31)
+		hash ^= static_cast<unsigned int>(c);
+		hash *= prime;
 	}
-	return abs(hash);
+
+	return hash;
 }
 
 // В зависимости от размера массива получает место в массиве куда нужно загрузить хэш или какие то другие данные чтобы через хэш таблицу к ним можно было потом обратится 
-int getindex(int hash, int lenmassive)
+unsigned int getindex(unsigned int hash, int lenmassive)
 {
 	return hash % lenmassive;
 }

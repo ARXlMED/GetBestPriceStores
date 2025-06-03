@@ -13,7 +13,7 @@ int authorizathion(int size_massive, std::vector<list<std::string>>& massive_log
 {
 	try
 	{
-		int hash, place_in_massive;
+		unsigned int hash, place_in_massive;
 		std::string login, password;
 		std::cout << "¬ведите ваш логин: \n";
 		std::cin >> login;
@@ -53,7 +53,7 @@ void registration(int size_massive, std::vector<list<std::string>>& massive_logi
 		std::ofstream out(file_name, std::ios::app);
 		std::ifstream in(file_name);
 		std::string login, password1, password2;
-		int hash, place_in_massive;
+		unsigned int hash, place_in_massive;
 		bool status = false;
 		std::cout << "¬ведите логин (можно использовать только латинские буквы, цифры и специальные символы): \n";
 		std::cin >> login;
@@ -132,7 +132,7 @@ void registration(int size_massive, std::vector<list<std::string>>& massive_logi
 void load_data_accounts(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities, std::string file_name)
 {
 	std::ifstream in(file_name);
-	int place_in_massive, hash;
+	unsigned int place_in_massive, hash;
 	std::string login, city;
 	if (in.is_open())
 	{

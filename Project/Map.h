@@ -14,7 +14,7 @@ struct map
 	// Добавить значение
 	void add_value(Key key, Value value)
 	{
-		int hash, index;
+		unsigned int hash, index;
 		hash = gethash(key);
 		index = getindex(hash, size_hash_table);
 		hash_table[index] = value;
@@ -23,7 +23,7 @@ struct map
 	// Проверить если ли такое значение в хэш таблице
 	bool check_value(Key key, Value value)
 	{
-		int hash, index;
+		unsigned int hash, index;
 		hash = gethash(key);
 		index = getindex(hash, size_hash_table);
 		if (value == hash_table[index])
@@ -36,7 +36,7 @@ struct map
 	// Проверить имеется ли какая то информация по данному ключу
 	bool check_presense_key(Key key)
 	{
-		int hash, index;
+		unsigned int hash, index;
 		hash = gethash(key);
 		index = getindex(hash, size_hash_table);
 
@@ -46,7 +46,7 @@ struct map
 	// Получить значение по ключу
 	Value get_value(Key key)
 	{
-		int hash, index;
+		unsigned int hash, index;
 		hash = gethash(key);
 		index = getindex(hash, size_hash_table);
 		return hash_table[index];
