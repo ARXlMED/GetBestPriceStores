@@ -28,7 +28,7 @@ int main()
 	
 	// Объявляем вектора где будут хранится все логины, хэши и города у аккаунтов
 	std::vector<list<std::string>> massive_logins(now_size);
-	std::vector<list<int>> massive_hashes(now_size);
+	std::vector<list<unsigned int>> massive_hashes(now_size);
 	std::vector<list<std::string>> massive_account_cities(now_size);
 
 	// Объявляем вектора где будут хранится все данные про города
@@ -48,7 +48,7 @@ int main()
 	load_all_stores(all_name_stores, all_coef_stores, file_all_stores);
 
 	// Регистрация или авторизация
-	int user_status = main_menu_registration(now_size, massive_logins, massive_hashes, massive_account_cities, massive_cities, file_accounts);
+	int user_status = main_menu_authorizathion(now_size, massive_logins, massive_hashes, massive_account_cities, massive_cities, file_accounts);
 
 	// Главное меню админа/пользователя/гостя
 	while (true)

@@ -15,7 +15,7 @@ void change_size_console(int size_console);
 void clear_console();
 
 // Начальное главное меню где предлагается зарегаться или авторизоваться или зайти в качестве гостя
-int main_menu_registration(int now_size, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities, map<std::string, double>& massive_cities, std::string file_name);
+int main_menu_authorizathion(int now_size, std::vector<list<std::string>>& massive_logins, std::vector<list<unsigned int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities, map<std::string, double>& massive_cities, std::string file_name);
 
 // Главное меню зависящее от статуса пользователя где происходит выбор действий
 void main_menu(int user_status);

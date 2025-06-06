@@ -9,7 +9,7 @@
 #include <fstream>
 
 // Проверка существует ли в массивах такой логин и пароль который ввёл пользователь в данной функции
-int authorizathion(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities)
+int authorizathion(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<unsigned int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities)
 {
 	unsigned int hash, place_in_massive;
 	std::string login, password;
@@ -39,7 +39,7 @@ int authorizathion(int size_massive, std::vector<list<std::string>>& massive_log
 
 
 // Регистрация нового аккаунта с выгрузкой в массив и в файл
-void registration(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, map<std::string, double>& massive_cities, std::string file_name)
+void registration(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<unsigned int>>& massive_hashes, map<std::string, double>& massive_cities, std::string file_name)
 {
 	while (true)
 	{
@@ -122,7 +122,7 @@ void registration(int size_massive, std::vector<list<std::string>>& massive_logi
 }
 
 // Подгрузка в массивы всех данных про аккаунты с файлов
-void load_data_accounts(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities, std::string file_name)
+void load_data_accounts(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<unsigned int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities, std::string file_name)
 {
 	std::ifstream in(file_name);
 	unsigned int place_in_massive, hash;

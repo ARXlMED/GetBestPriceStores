@@ -1,7 +1,7 @@
 #include "debug.h"
 
 // Вывод всех аккаунтов содержащихся в массивах
-void debug_accounts(int now_size, std::vector<list<std::string>> &massive_logins, std::vector<list<int>> &massive_hashes, std::vector<list<std::string>>& massive_account_cities)
+void debug_accounts(int now_size, std::vector<list<std::string>> &massive_logins, std::vector<list<unsigned int>> &massive_hashes, std::vector<list<std::string>>& massive_account_cities)
 {
 	for (int i = 0; i < now_size; i++)
 	{

@@ -70,7 +70,7 @@ void clear_console()
 }
 
 // Начальное главное меню где предлагается зарегаться или авторизоваться или зайти в качестве гостя
-int main_menu_registration(int now_size, std::vector<list<std::string>>& massive_logins, std::vector<list<int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities, map<std::string, double>& massive_cities, std::string file_name)
+int main_menu_authorizathion(int now_size, std::vector<list<std::string>>& massive_logins, std::vector<list<unsigned int>>& massive_hashes, std::vector<list<std::string>>& massive_account_cities, map<std::string, double>& massive_cities, std::string file_name)
 {
     std::cout <<
         "=============================================================================================================================================================================================================================================\n"
