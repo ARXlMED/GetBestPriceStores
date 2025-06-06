@@ -20,18 +20,3 @@ unsigned int getindex(unsigned int hash, int lenmassive)
 {
 	return hash % lenmassive;
 }
-
-// Проверка на наличие хэша (не используется)
-bool presence_in_hashes(std::string answer, std::vector<list<int>> massive_hashes)
-{
-	int hash = gethash(answer);
-	int index = getindex(hash, massive_hashes.size());
-	for (int i = 0; i < massive_hashes[index].get_size(); i++)
-	{
-		if (massive_hashes[index][i] == hash)
-		{
-			return true;
-		}
-	}
-	return false;
-}

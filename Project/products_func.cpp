@@ -40,6 +40,7 @@ void get_data_products(std::vector<Product>& massive_products)
 		sort_by_count(massive_products);
 		break;
 	default:
+		std::cout << "Сортировка не выбрана товары не будут отсортированы\n";
 		break;
 	}
 	std::cout << "Введите режим отображения информации о товарах: \n"
@@ -126,7 +127,17 @@ int get_index_product(std::vector<Product>& massive_products)
 	{
 		std::cout << "Выберерите способ ввода поиска товара:\n1. По индексу в общем списке\n2. По названию\n";
 		std::cin >> answ;
-		if (answ == "1")
+		if (answ == "2")
+		{
+			std::string name;
+			std::cout << "Введите название товара \n";
+			clear_console();
+			std::getline(std::cin, name);
+			index = get_product_index_by_name(name, massive_products);
+			if (index != -1) break;
+			else std::cout << "Данный товар не найден\n";
+		}
+		else
 		{
 			for (int i = 0; i < massive_products.size(); i++)
 			{
@@ -138,16 +149,6 @@ int get_index_product(std::vector<Product>& massive_products)
 			index--;
 			if (index >= 0 && index < massive_products.size()) break;
 			else std::cout << "Вы ввели недействительный индекс\n";
-		}
-		else
-		{
-			std::string name;
-			std::cout << "Введите название товара \n";
-			clear_console();
-			std::getline(std::cin, name);
-			index = get_product_index_by_name(name, massive_products);
-			if (index != -1) break;
-			else std::cout << "Данный товар не найден\n";
 		}
 	}
 	return index;

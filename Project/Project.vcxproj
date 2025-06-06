@@ -135,7 +135,7 @@
     <ClCompile Include="data_all_stores.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="enter_secret.cpp" />
-    <ClCompile Include="getbestprice.cpp" />
+    <ClCompile Include="get_best_price.cpp" />
     <ClCompile Include="hash.cpp" />
     <ClCompile Include="interface.cpp" />
     <ClCompile Include="MAIN.cpp" />
@@ -152,7 +152,7 @@
     <ClInclude Include="data_all_stores.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="enter_secret.h" />
-    <ClInclude Include="getbestprice.h" />
+    <ClInclude Include="get_best_price.h" />
     <ClInclude Include="hash.h" />
     <ClInclude Include="interface.h" />
     <ClInclude Include="List.h" />

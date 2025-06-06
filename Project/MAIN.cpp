@@ -13,7 +13,7 @@
 #include "products_file.h"
 #include "products_func.h"
 #include "cities.h"
-#include "getbestprice.h"
+#include "get_best_price.h"
 
 
 int main()
@@ -66,7 +66,7 @@ int main()
 				get_best_price(massive_products, all_name_stores, all_coef_stores);
 			}
 			// Поиск лучшей цены для товара с учётом доставки
-			else if (answer == 2 && user_status > 1)
+			else if (answer == 2 && user_status > 0)
 			{
 				get_best_price(massive_products, all_name_stores, all_coef_stores, &massive_cities);
 			}
@@ -93,7 +93,7 @@ int main()
 			// Просмотреть цену доставки за килограмм товара в ваш город
 			else if ((answer == 6 && user_status == 1) || (answer == 11 && user_status == 2))
 			{
-				std::cout << "Цена доставки за 1 кг товара до вашего города составляет: " << massive_cities.get_value(now_city) << "\n";
+				std::cout << "Цена доставки за 1 кг товара до вашего города составляет: " << massive_cities.get_value(now_city) / 100 << " BYN" << "\n";
 			}
 			// Авторизоваться (то есть сменить user_status)
 			else if (answer == 5 && user_status == 0)

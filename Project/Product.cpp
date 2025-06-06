@@ -1,4 +1,5 @@
 #include "Product.h"
+#include <iostream>
 #include "data_all_stores.h"
 #include "cin_int.h"
 #include "cities.h"
@@ -75,31 +76,6 @@ void Product::sort_by_name()
 O(n * log n) + O (log n) = O (n * log n), а обычный поиск за O(n), а значит мы должны сортировку проводить только по велению пользовател€
 и при этом не мен€ть всЄ в изначальной структуре)*/ 
 //void Product::sort_by_price()
-//{
-//	const double factor = 1.247;
-//	int amountstores = Stores_price.size();
-//	int step = amountstores - 1;
-//
-//	while (step >= 1) // –асчЄска почти сортирует массив
-//	{
-//		for (int i = 0; i + step < amountstores; i++)
-//		{
-//			if (Stores_price[i] > Stores_price[i + step])
-//			{
-//				swapdatastores(i, i + step);
-//			}
-//		}
-//		step /= factor;
-//	}
-//
-//	for (int i = 0; i + 1 < amountstores; i++) // ѕроход пузырьковой дл€ закреплени€
-//	{
-//		if (Stores_price[i] > Stores_price[i + 1])
-//		{
-//			swapdatastores(i, i + 1);
-//		}
-//	}
-//}
 
 // ѕо названию (номеру) магазина находит индекс элемента в массиве конкретного товара (работает при отсортированном массиве по алфавиту)
 int Product::binary_search_store(int index_store, std::vector<std::string>& all_name_stores)
@@ -139,6 +115,7 @@ void Product::change_price(std::vector<std::string>& all_name_stores)
 			std::cout << "\n";
 		}
 	}
+	std::cout << "\n";
 	int num_all_store;
 	cin_int(num_all_store);
 	if (num_all_store < 1 || num_all_store > all_name_stores.size())
@@ -162,11 +139,15 @@ void Product::change_price(std::vector<std::string>& all_name_stores)
 				Stores_base_price.push_back(price);
 				Stores_num_products.push_back(num_products);
 				sort_by_name();
+				min_price = get_min_price();
+				sum_count = get_sum_count();
 			}
 			else
 			{
 				Stores_base_price[num_store] = price;
 				Stores_num_products[num_store] = num_products;
+				min_price = get_min_price();
+				sum_count = get_sum_count();
 			}
 		}
 		else

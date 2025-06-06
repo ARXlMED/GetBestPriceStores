@@ -19,7 +19,6 @@ void change_now_city(map<std::string, double> cities)
 	if (cities.check_presense_key(new_city))
 	{
 		now_city = new_city;
-
 	}
 	else std::cout << "ƒанного города нет в списке доступных дл€ доставки\n";
 }
