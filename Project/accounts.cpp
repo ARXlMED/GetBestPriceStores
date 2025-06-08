@@ -21,7 +21,7 @@ int authorizathion(int size_massive, std::vector<list<std::string>>& massive_log
 	hash = gethash(password);
 	place_in_massive = getindex(hash, size_massive);
 
-	if (login == "admin" && hash == 3468633482)
+	if (login == "admin" && hash == 399829715)
 	{
 		return 2;
 	}
@@ -36,7 +36,6 @@ int authorizathion(int size_massive, std::vector<list<std::string>>& massive_log
 	}
 	return 0;
 }
-
 
 // Регистрация нового аккаунта с выгрузкой в массив и в файл
 void registration(int size_massive, std::vector<list<std::string>>& massive_logins, std::vector<list<unsigned int>>& massive_hashes, map<std::string, double>& massive_cities, std::string file_name)

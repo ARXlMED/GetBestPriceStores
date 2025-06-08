@@ -23,10 +23,10 @@ int main()
 	SetConsoleCP(1251);
 	change_size_console(3);
 	
-	// Размер векторов для хэшей
+	// Размер векторов для хешей
 	const int now_size = 1543;
 	
-	// Объявляем вектора где будут хранится все логины, хэши и города у аккаунтов
+	// Объявляем вектора где будут хранится все логины, хеши и города у аккаунтов
 	std::vector<list<std::string>> massive_logins(now_size);
 	std::vector<list<unsigned int>> massive_hashes(now_size);
 	std::vector<list<std::string>> massive_account_cities(now_size);
@@ -111,7 +111,7 @@ int main()
 			{
 				switch (answer)
 				{
-					// Добавление нового товара
+				// Добавление нового товара
 				case 3:
 				{
 					add_new_product(massive_products);
@@ -159,7 +159,7 @@ int main()
 					new_city(massive_cities, file_cities);
 					break;
 				}
-				// Просмотреть логины, хэши и города аккаунтов
+				// Просмотреть логины, хеши и города аккаунтов
 				case 13:
 				{
 					debug_accounts(now_size, massive_logins, massive_hashes, massive_account_cities);
